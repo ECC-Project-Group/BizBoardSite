@@ -1,0 +1,28 @@
+{
+  "name": "bizboardsite",
+  "version": "1.0.0",
+  "description": "Website that will print out the addresses from a Google Sheet",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"lol\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cowation/BizBoardSite.git"
+  },
+  "keywords": [
+    "pdf"
+  ],
+  "author": "Exeter Computing Club",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Cowation/BizBoardSite/issues"
+  },
+  "homepage": "https://github.com/Cowation/BizBoardSite#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "google-spreadsheet": "^3.1.15",
+    "moment": "^2.29.1"
+  }
+}
