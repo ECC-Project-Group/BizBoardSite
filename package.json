@@ -4,7 +4,8 @@
   "description": "Website that will print out the addresses from a Google Sheet",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"lol\""
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,10 @@
     "express": "^4.17.1",
     "google-spreadsheet": "^3.1.15",
     "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2"
   }
 }
