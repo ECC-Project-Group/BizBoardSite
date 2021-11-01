@@ -1,9 +1,6 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-const doc = new GoogleSpreadsheet(
-  //! ! Leaving my public api key here. Please don't abuse it.
-  '1R3FEuZara22iPOcLsTEQT7Jbw7jiSPWVN_RnMo4CQZw',
-);
+const doc = new GoogleSpreadsheet(process.env.API_KEY);
 
 async function getUsers() {
   doc.useApiKey('AIzaSyBEXka1tD_WAR-hU96m75dhmTJ5HsoZUaI');
