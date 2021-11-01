@@ -1,11 +1,13 @@
-const express = require("express");
+const express = require('express');
+const { router } = require('./router/router');
 
 const app = express();
 
-app.get("/", (_, res) => {
-	res.send("hello world");
-});
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(router);
+// app.get('/', (_, res) => {
+//   res.send('hello world');
+// });
 
-app.listen(3030, () => {
-	console.log(`up and running on 3030`);
-});
+module.exports = { app };
