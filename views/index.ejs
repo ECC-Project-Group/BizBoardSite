@@ -5,59 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/main.css">
+
+    <script>
+      async function fetchPDF(user) {
+          const pdf = await fetch('http://localhost:3000/render', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: user
+          });
+          const pdfBlob = await pdf.blob();
+          const pdfURL = URL.createObjectURL(pdfBlob);
+
+          const usr = JSON.parse(user);
+
+          const anchor = document.createElement("a");
+          anchor.href = pdfURL;
+          anchor.download = `${usr.First}${usr.Last}.pdf`;
+
+          document.body.appendChild(anchor);
+          anchor.click();
+          document.body.removeChild(anchor);
+
+          URL.revokeObjectURL(pdfURL);
+      }
+    </script>
+
     <title>BizBoard</title>
   </head>
   <div class="left">
   <body>
         <h1>About to Expire</h1>
         <table>
-        <tr>
-            <th>First</th>
-            <th>Last</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th>Country</th>
-            <th>Date</th>
-        </tr>
-        <% for (var i = 0; i < aboutToExpire.length; i++) { %>
-        <tr>
-            <td><%= aboutToExpire[i].First %></td>
-            <td><%= aboutToExpire[i].Last %></td>
-            <td><%= aboutToExpire[i].Address %></td>
-            <td><%= aboutToExpire[i].City %></td>
-            <td><%= aboutToExpire[i].State %></td>
-            <td><%= aboutToExpire[i].Zip %></td>
-            <td><%= aboutToExpire[i].Country %></td>
-            <td><%= aboutToExpire[i].Date %></td>
-        </tr>
-        <% } %>
+          <tr>
+              <th>First</th>
+              <th>Last</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Zip</th>
+              <th>Country</th>
+              <th>Date</th>
+              <th></th>
+          </tr>
+          <% for (var i = 0; i < aboutToExpire.length; i++) { %>
+          <tr>
+              <td><%= aboutToExpire[i].First %></td>
+              <td><%= aboutToExpire[i].Last %></td>
+              <td><%= aboutToExpire[i].Address %></td>
+              <td><%= aboutToExpire[i].City %></td>
+              <td><%= aboutToExpire[i].State %></td>
+              <td><%= aboutToExpire[i].Zip %></td>
+              <td><%= aboutToExpire[i].Country %></td>
+              <td><%= aboutToExpire[i].Date %></td>
+              <td><button onclick="fetchPDF('<%= JSON.stringify(aboutToExpire[i]) %>')">SAVE PDF</button></td>
+          </tr>
+          <% } %>
         </table>
         <h1>Expired</h1>
         <table>
-        <tr>
-            <th>First</th>
-            <th>Last</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th>Country</th>
-            <th>Date</th>
-        </tr>
-        <% for (var i = 0; i < expired.length; i++) { %>
-        <tr>
-            <td><%= expired[i].First %></td>
-            <td><%= expired[i].Last %></td>
-            <td><%= expired[i].Address %></td>
-            <td><%= expired[i].City %></td>
-            <td><%= expired[i].State %></td>
-            <td><%= expired[i].Zip %></td>
-            <td><%= expired[i].Country %></td>
-            <td><%= expired[i].Date %></td>
-        </tr>
-        <% } %>
+          <tr>
+              <th>First</th>
+              <th>Last</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Zip</th>
+              <th>Country</th>
+              <th>Date</th>
+          </tr>
+          <% for (var i = 0; i < expired.length; i++) { %>
+          <tr>
+              <td><%= expired[i].First %></td>
+              <td><%= expired[i].Last %></td>
+              <td><%= expired[i].Address %></td>
+              <td><%= expired[i].City %></td>
+              <td><%= expired[i].State %></td>
+              <td><%= expired[i].Zip %></td>
+              <td><%= expired[i].Country %></td>
+              <td><%= expired[i].Date %></td>
+              <td><button onclick="fetchPDF('<%= JSON.stringify(expired[i]) %>')">SAVE PDF</button></td>
+          </tr>
+          <% } %>
         </table>
     </div>
   </body>
