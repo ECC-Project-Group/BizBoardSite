@@ -1,14 +1,19 @@
 const { Router } = require('express');
 const { checkForExpiration } = require('../core/dates');
 const { getUsers } = require('../core/sheets');
-const { renderAddress } = require('../core/render');
+const { renderAddress, printAll } = require('../core/render');
 
 const router = Router();
 
 router.get('/', (_, res) => {
   getUsers().then((users) => {
     const { expired, aboutToExpire } = checkForExpiration(users);
-    res.render('index', { expired, aboutToExpire });
+
+    const normal = users.filter(
+      (u) => !expired.includes(u) && !aboutToExpire.includes(u),
+    );
+
+    res.render('index', { expired, aboutToExpire, normal });
   });
 });
 
@@ -20,6 +25,10 @@ router.post('/render', (req, res) => {
   } else {
     res.sendStatus(400);
   }
+});
+
+router.get('/printAll', (_, res) => {
+  printAll(res);
 });
 
 module.exports = { router };
