@@ -2,7 +2,7 @@
   "name": "bizboardsite",
   "version": "1.0.0",
   "description": "Website that will print out the addresses from a Google Sheet",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

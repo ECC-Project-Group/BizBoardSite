@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap');
+
 /* .left {
   width: 50%;
 } */
+h1, td, th, button {
+  font-family: 'Source Serif Pro', serif;
+}
 table {
   width: 100%;
   border: 1px solid black;
