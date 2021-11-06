@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="/main.css" />
 
     <script>
-      async function fetchPDF(user) {
-        const pdf = await fetch('http://localhost:3000/render', {
+      async function fetchAndDownload(path, body) {
+        const pdf = await fetch(`http://localhost:3000/${path}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: user,
+          body: body,
         });
         const pdfBlob = await pdf.blob();
         const pdfURL = URL.createObjectURL(pdfBlob);
 
-        const usr = JSON.parse(user);
-
         const anchor = document.createElement('a');
         anchor.href = pdfURL;
-        anchor.download = `${usr.First}${usr.Last}.pdf`;
+        // If body exists, return {First}{Last}.pdf, else return Print.pdf
+        anchor.download = `${
+          body ? JSON.parse(body).First + JSON.parse(body).Last : 'Print'
+        }.pdf`;
 
         document.body.appendChild(anchor);
         anchor.click();
@@ -31,25 +32,12 @@
         URL.revokeObjectURL(pdfURL);
       }
 
+      async function downloadSingle(user) {
+        fetchAndDownload('downloadSingle', user);
+      }
+
       async function printAll() {
-        const pdf = await fetch('http://localhost:3000/printAll', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const pdfBlob = await pdf.blob();
-        const pdfURL = URL.createObjectURL(pdfBlob);
-
-        const anchor = document.createElement('a');
-        anchor.href = pdfURL;
-        anchor.download = `Print.pdf`;
-
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
-
-        URL.revokeObjectURL(pdfURL);
+        fetchAndDownload('downloadAll');
       }
     </script>
 
@@ -57,111 +45,10 @@
   </head>
 
   <body>
-    <h1>About to Expire</h1>
-    <div class="abt-expire">
-      <table>
-        <thead>
-          <tr>
-            <th>First</th>
-            <th>Last</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th>Country</th>
-            <th>Date</th>
-            <th>Print</th>
-          </tr>
-        </thead>
-        <% for (var i = 0; i < aboutToExpire.length; i++) { %>
-        <tr>
-          <td><%= aboutToExpire[i].First %></td>
-          <td><%= aboutToExpire[i].Last %></td>
-          <td><%= aboutToExpire[i].Address %></td>
-          <td><%= aboutToExpire[i].City %></td>
-          <td><%= aboutToExpire[i].State %></td>
-          <td><%= aboutToExpire[i].Zip %></td>
-          <td><%= aboutToExpire[i].Country %></td>
-          <td><%= aboutToExpire[i].Date %></td>
-          <td>
-            <button
-              onclick="fetchPDF('<%= JSON.stringify(aboutToExpire[i]) %>')"
-            >
-              SAVE PDF
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </table>
-    </div>
-    <h1>Expired</h1>
-    <div class="expired">
-      <table>
-        <tr>
-          <th>First</th>
-          <th>Last</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip</th>
-          <th>Country</th>
-          <th>Date</th>
-          <th>Print</th>
-        </tr>
-        <% for (var i = 0; i < expired.length; i++) { %>
-        <tr>
-          <td><%= expired[i].First %></td>
-          <td><%= expired[i].Last %></td>
-          <td><%= expired[i].Address %></td>
-          <td><%= expired[i].City %></td>
-          <td><%= expired[i].State %></td>
-          <td><%= expired[i].Zip %></td>
-          <td><%= expired[i].Country %></td>
-          <td><%= expired[i].Date %></td>
-          <td>
-            <button onclick="fetchPDF('<%= JSON.stringify(expired[i]) %>')">
-              SAVE PDF
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </table>
-    </div>
-    <h1>Normal Subscription</h1>
-    <div class="normal">
-      <table>
-        <thead>
-          <tr>
-            <th>First</th>
-            <th>Last</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th>Country</th>
-            <th>Date</th>
-            <th>Print</th>
-          </tr>
-        </thead>
-        <% for (var i = 0; i < normal.length; i++) { %>
-        <tr>
-          <td><%= normal[i].First %></td>
-          <td><%= normal[i].Last %></td>
-          <td><%= normal[i].Address %></td>
-          <td><%= normal[i].City %></td>
-          <td><%= normal[i].State %></td>
-          <td><%= normal[i].Zip %></td>
-          <td><%= normal[i].Country %></td>
-          <td><%= normal[i].Date %></td>
-          <td>
-            <button onclick="fetchPDF('<%= JSON.stringify(normal[i]) %>')">
-              SAVE PDF
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </table>
-    </div>
+    <%- include('partials/table', {title: "About To Expire", data: aboutToExpire}); %>
+    <%- include('partials/table', {title: "Expired", data: expired}); %> 
+    <%- include('partials/table', {title: "Normal", data: normal}); %>
+
     <button class="print" onclick="printAll()">Print All</button>
   </body>
 </html>

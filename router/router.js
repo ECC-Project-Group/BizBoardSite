@@ -9,6 +9,7 @@ router.get('/', (_, res) => {
   getUsers().then((users) => {
     const { expired, aboutToExpire } = checkForExpiration(users);
 
+    // Sets normal user to array not containing expired and aboutToExpire
     const normal = users.filter(
       (u) => !expired.includes(u) && !aboutToExpire.includes(u),
     );
@@ -17,7 +18,8 @@ router.get('/', (_, res) => {
   });
 });
 
-router.post('/render', (req, res) => {
+// Download single user's envelope given {UserObject}
+router.post('/downloadSingle', (req, res) => {
   if (req.body) {
     const user = req.body;
 
@@ -27,7 +29,8 @@ router.post('/render', (req, res) => {
   }
 });
 
-router.get('/printAll', (_, res) => {
+// Download all subscriptions, in one file
+router.post('/downloadAll', (_, res) => {
   printAll(res);
 });
 
