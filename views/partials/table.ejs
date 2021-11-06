@@ -1,0 +1,30 @@
+<h1><%= title %></h1>
+<div class="<%= title %>">
+  <table>
+    <thead>
+      <tr>
+        <th>First</th>
+        <th>Last</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Country</th>
+        <th>Date</th>
+        <th>Print</th>
+      </tr>
+    </thead>
+    <% for (var i = 0; i < data.length; i++) { %>
+    <tr>
+      <% for (let key in data[i]) {%>
+      <td><%= data[i][key] %></td>
+      <% } %>
+      <td>
+        <button onclick="downloadSingle('<%= JSON.stringify(data[i]) %>')">
+          SAVE PDF
+        </button>
+      </td>
+    </tr>
+    <% } %>
+  </table>
+</div>

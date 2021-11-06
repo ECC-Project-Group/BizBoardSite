@@ -1,11 +1,11 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-const doc = new GoogleSpreadsheet(process.env.API_KEY);
+const doc = new GoogleSpreadsheet(process.env.SHEET_ID);
 
 async function getUsers() {
-  doc.useApiKey('AIzaSyBEXka1tD_WAR-hU96m75dhmTJ5HsoZUaI');
-  await doc.loadInfo(); // loads document properties and worksheets
-  const sheet = doc.sheetsByIndex[0];
+  doc.useApiKey(process.env.API_KEY);
+  await doc.loadInfo(); // Loads sheet data
+  const sheet = doc.sheetsByIndex[0]; // Gets first sheet
 
   const rows = await sheet.getRows();
 
@@ -25,6 +25,9 @@ async function getUsers() {
 
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
+
+    // Fastest implementation. No alternatives found.
+    // Converts class into plain {UserObject}
     const tmp = {
       First: row.First,
       Last: row.Last,

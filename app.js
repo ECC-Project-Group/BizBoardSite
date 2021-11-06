@@ -7,8 +7,5 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static('public'));
 app.use(router);
-// app.get('/', (_, res) => {
-//   res.send('hello world');
-// });
 
 module.exports = { app };
