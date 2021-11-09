@@ -1,21 +1,39 @@
-div {
-  display: inline-block;
-  height: 150px;
-  overflow: auto;
-  width: 80%;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
-table th {
-  position: sticky;
-  top: 0;
+table,
+h1,
+button {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.table {
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: scroll;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.25); 
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.25);
 }
 
 table {
+  text-align: left;
   border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+}
+
+table thead th {
+  top: 0;
+  position: sticky;
 }
 
 th {
-  background-color: #1976d2;
+  position: sticky;
+  background-color: #9a1d2e;
   color: #fff;
 }
 
@@ -24,25 +42,37 @@ td {
   padding: 0.5em 0.5em;
 }
 
-table tr {
-  color: #212121;
-}
-
 table tr:nth-child(odd) {
-  background-color: #bbdefb;
-}
-
-/* Not good practice, but works */
-.About {
-  font-weight: bold;
+  background-color: #ffe9ec;
 }
 
 .print {
-  background-color: #4caf50; /* Green */
+  align-self: center;
+  width: 400px;
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  background-color: #ee687a;
+  color: #fff;
   border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+  -webkit-transition: all 0.3s 0s ease-out;
+  -moz-transition: all 0.3s 0s ease-out;
+  -o-transition: all 0.3s 0s ease-out;
+  transition: all 0.3s 0s ease-out;
+}
+
+.print:hover {
+  width: 450px;
+}
+
+#preview {
+  align-self: center;
+  width: 100%;
+  height: 90vh;
+  margin-bottom: 25px;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.25); 
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.25);
 }

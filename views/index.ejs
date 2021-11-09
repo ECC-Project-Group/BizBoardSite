@@ -39,6 +39,19 @@
       async function printAll() {
         fetchAndDownload('downloadAll');
       }
+
+      window.onload = async function() {
+        const pdf = await fetch(`http://localhost:3000/downloadAll`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const pdfBlob = await pdf.blob();
+        const pdfURL = URL.createObjectURL(pdfBlob);
+
+        document.getElementById('preview').setAttribute("src", pdfURL);
+      }
     </script>
 
     <title>BizBoard</title>
@@ -49,6 +62,9 @@
     <%- include('partials/table', {title: "Expired", data: expired}); %> 
     <%- include('partials/table', {title: "Normal", data: normal}); %>
 
-    <button class="print" onclick="printAll()">Print All</button>
+    <button class="print" onclick="printAll()">PRINT ALL ENTRIES</button>
+
+    <h1> Preview </h1>
+    <iframe id="preview" src=""/>
   </body>
 </html>

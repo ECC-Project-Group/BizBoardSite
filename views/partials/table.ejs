@@ -1,17 +1,16 @@
 <h1><%= title %></h1>
-<div class="<%= title %>">
+<div class="table">
   <table>
     <thead>
       <tr>
-        <th>First</th>
-        <th>Last</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zip</th>
-        <th>Country</th>
-        <th>Date</th>
-        <th>Print</th>
+        <th style="width: 8%">First</th>
+        <th style="width: 8%">Last</th>
+        <th style="width: 28%">Address</th>
+        <th style="width: 12%">City</th>
+        <th style="width: 12%">State</th>
+        <th style="width: 5%">Zip</th>
+        <th style="width: 12%">Country</th>
+        <th style="width: 8%">Date</th>
       </tr>
     </thead>
     <% for (var i = 0; i < data.length; i++) { %>
@@ -19,11 +18,6 @@
       <% for (let key in data[i]) {%>
       <td><%= data[i][key] %></td>
       <% } %>
-      <td>
-        <button onclick="downloadSingle('<%= JSON.stringify(data[i]) %>')">
-          SAVE PDF
-        </button>
-      </td>
     </tr>
     <% } %>
   </table>
