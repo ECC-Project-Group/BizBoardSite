@@ -8,7 +8,7 @@
 
     <script>
       async function fetchAndDownload(path, body) {
-        const pdf = await fetch(`http://localhost:3000/${path}`, {
+        const pdf = await fetch(`/${path}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@
       }
 
       window.onload = async function() {
-        const pdf = await fetch(`http://localhost:3000/downloadAll`, {
+        const pdf = await fetch(`/downloadAll`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
